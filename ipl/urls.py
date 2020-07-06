@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from ipl_app.views import IplView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', IplView.as_view()),
 ]

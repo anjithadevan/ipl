@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <title class="align-items-center">{% block title %}IPL{% endblock %}</title>
+    {% block style %}{% endblock %}
+  </head>
+  <body>
+  {{winners}}
+  <div class="chart-container" style="width: 50%;">
+    <canvas id="bar-chartcanvas"></canvas>
+  </div>
+  <div id="container" style="width: 50%;">
+      <h3>Percentage of teams decided to bat when they won the toss</h3>
+    <canvas id="pie-chart"></canvas>
+  </div>
+  <div id="toss-container" style="width: 50%;">
+      <h3>Maximum toss winners</h3>
+    <canvas id="toss-chart"></canvas>
+  </div>
+  <div id="player-of-match-container" style="width: 50%;">
+      <h3>Maximum number of Player of the Match awards in the whole season</h3>
+    <canvas id="player-of-match"></canvas>
+  </div>
+  <div id="seasonal-winner-container" style="width: 50%;">
+      <h3>Seasonal Winners</h3>
+    <canvas id="seasonal-winner-match"></canvas>
+  </div>
+  <div style="width: 50%;">
+      <h3>Location of the most number of wins for the top team</h3>
+    <canvas id="winner-location"></canvas>
+  </div>
+  <div style="width: 50%;">
+      <h3>Team won by the highest margin of runs  for the season</h3>
+    <canvas id="winner_with_large_runs"></canvas>
+  </div>
+  <div style="width: 50%;">
+      <h3>Location hosted for most number of matches</h3>
+    <canvas id="location_for_most_matches"></canvas>
+  </div>
+  </body>
+  <script>
+    window.onload = function() {
+        var most_match_location = document.getElementById('location_for_most_matches').getContext('2d');
+        var winner_with_large_runs = document.getElementById('winner_with_large_runs').getContext('2d');
+        var winner_location = document.getElementById('winner-location').getContext('2d');
+        var seasonal_winner = document.getElementById('seasonal-winner-match').getContext('2d');
+        var ctx = document.getElementById('pie-chart').getContext('2d');
+        var tos_winner = document.getElementById('toss-chart').getContext('2d');
+        var player_of_match = document.getElementById('player-of-match').getContext('2d');
+        window.myPie = new Chart(most_match_location, most_match_locations);
+        window.myPie = new Chart(winner_with_large_runs, winner_with_large_run);
+        window.myPie = new Chart(winner_location, winner_locations);
+        window.myPie = new Chart(seasonal_winner, seasonal_winners);
+        window.myPie = new Chart(player_of_match, playerOfMatch);
+        window.myPie = new Chart(ctx, config);
+        window.myPie = new Chart(tos_winner, toss_winner);
+        var bar_chartcanvas = document.getElementById("bar-chartcanvas").getContext("2d");
+        window.myPie = new Chart(bar_chartcanvas,myBarChart );
+    };
+    var data = {
+        labels: [{% for label in winners %} '{{ label }}', {% endfor %}],
+        datasets: [
+            {
+                label: "black",
+                backgroundColor: "black",
+                data: [8,8,8]
+            },
+            {
+                label: "Red",
+                backgroundColor: "red",
+                data: [6,6,6]
+            },
+            {
+                label: "Green",
+                backgroundColor: "green",
+                data: [4,4,4]
+            },
+            {
+                label: "Green",
+                backgroundColor: "yellow",
+                data: [2,2,2]
+            }
+        ]
+    };
+
+    var myBarChart = {
+        type: 'bar',
+        data: data,
+        options: {
+            barValueSpacing: 20,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                    }
+                }]
+            }
+        }
+    };
+
+    var most_match_locations = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ seasons|safe }},
+          backgroundColor: 'brown',
+          label: 'Most match location'
+        }],
+        labels: {{ location_with_matches|safe }}
+
+      },
+      options: {
+        responsive: true
+      }
+    };
+    var winner_with_large_run = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ seasons|safe }},
+          backgroundColor: 'orange',
+          label: 'Winner with Large runs'
+        }],
+        labels: {{ winner_with_large_runs|safe }}
+
+      },
+      options: {
+        responsive: true
+      }
+    };
+    var winner_locations = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ seasons|safe }},
+          backgroundColor: 'blue',
+          label: 'Winner Locations'
+        }],
+        labels: {{ winner_location|safe }}
+
+      },
+      options: {
+        responsive: true
+      }
+    };
+    var seasonal_winners = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ seasons|safe }},
+          backgroundColor: 'pink',
+          label: 'Seasonal Winner'
+        }],
+        labels: {{ seasons_winners|safe }}
+
+      },
+      options: {
+        responsive: true
+      }
+    };
+    var config = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ bat_decided_per|safe }},
+          backgroundColor: 'black',
+          label: '% of teams decided to bat'
+        }],
+        labels: {{ seasons|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+    var toss_winner = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ seasons|safe }},
+          backgroundColor: 'black',
+          label: 'Maximum toss winners'
+        }],
+        labels: {{ max_toss_winner|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+    var toss_winner = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ seasons|safe }},
+          backgroundColor: 'green',
+          label: 'Maximum toss winners'
+        }],
+        labels: {{ max_toss_winner|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+    var playerOfMatch = {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: {{ seasons|safe }},
+          backgroundColor: 'red',
+          label: 'Player of match'
+        }],
+        labels: {{ player_of_match|safe }}
+
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+  </script>
+
+</html>
