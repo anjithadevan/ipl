@@ -12,10 +12,28 @@
     {% block style %}{% endblock %}
   </head>
   <body>
-  {{winners}}
-  <div class="chart-container" style="width: 50%;">
-    <canvas id="bar-chartcanvas"></canvas>
-  </div>
+  <h3>Winning teams in each years</h3>
+  <table class="table" style="width: 50%;">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Year</th>
+        <th scope="col">First</th>
+        <th scope="col">Second</th>
+        <th scope="col">Third</th>
+        <th scope="col">Fourth</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for key, values in winners.items %}
+      <tr>
+        <td style="color:blue">{{key}}</td>
+        {% for v in values %}
+        <td style="color:red">{{v}}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
   <div id="container" style="width: 50%;">
       <h3>Percentage of teams decided to bat when they won the toss</h3>
     <canvas id="pie-chart"></canvas>
@@ -61,50 +79,7 @@
         window.myPie = new Chart(player_of_match, playerOfMatch);
         window.myPie = new Chart(ctx, config);
         window.myPie = new Chart(tos_winner, toss_winner);
-        var bar_chartcanvas = document.getElementById("bar-chartcanvas").getContext("2d");
-        window.myPie = new Chart(bar_chartcanvas,myBarChart );
     };
-    var data = {
-        labels: [{% for label in winners %} '{{ label }}', {% endfor %}],
-        datasets: [
-            {
-                label: "black",
-                backgroundColor: "black",
-                data: [8,8,8]
-            },
-            {
-                label: "Red",
-                backgroundColor: "red",
-                data: [6,6,6]
-            },
-            {
-                label: "Green",
-                backgroundColor: "green",
-                data: [4,4,4]
-            },
-            {
-                label: "Green",
-                backgroundColor: "yellow",
-                data: [2,2,2]
-            }
-        ]
-    };
-
-    var myBarChart = {
-        type: 'bar',
-        data: data,
-        options: {
-            barValueSpacing: 20,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                    }
-                }]
-            }
-        }
-    };
-
     var most_match_locations = {
       type: 'bar',
       data: {
