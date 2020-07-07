@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from ipl_app.models import Match
 # Create your views here.
-
+from django.core.exceptions import ObjectDoesNotExist
 
 class IplView(TemplateView):
     template_name = "ipl_app/ipl.html"
@@ -79,6 +79,9 @@ class IplView(TemplateView):
         return req_list
 
     def get_max_value(self, season, val_list_content):
-        match = Match.objects.filter(season=season).values_list(val_list_content, flat=True)
-        match_winner = self.get_list_from_query_set(match)
+        try:
+            match = Match.objects.filter(season=season).values_list(val_list_content, flat=True)
+            match_winner = self.get_list_from_query_set(match)
+        except ObjectDoesNotExist:
+            match_winner = []
         return max(match_winner, key=match_winner.count)
