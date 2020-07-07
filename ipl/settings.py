@@ -76,11 +76,14 @@ WSGI_APPLICATION = 'ipl.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ipl_db',
+        'USER': 'techversant',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5432',                      # Set to empty string for default.
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
