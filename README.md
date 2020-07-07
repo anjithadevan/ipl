@@ -3,6 +3,7 @@
 1.Its an application analysing ipl result from the given csv file.
 
 Setps for installation
+
 1)Install requirements by pip install -r requirements.txt
 
 2)Create databse 
