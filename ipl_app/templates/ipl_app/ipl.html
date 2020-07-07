@@ -12,55 +12,62 @@
     {% block style %}{% endblock %}
   </head>
   <body>
-  <h3>Winning teams in each years</h3>
-  <table class="table" style="width: 50%;">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">Year</th>
-        <th scope="col">First</th>
-        <th scope="col">Second</th>
-        <th scope="col">Third</th>
-        <th scope="col">Fourth</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for key, values in winners.items %}
-      <tr>
-        <td style="color:blue">{{key}}</td>
-        {% for v in values %}
-        <td style="color:red">{{v}}</td>
+  <div class="jumbotron text-center">
+  <h1>IPL ANATYSIS</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      <h3 style="padding-left: 370px;">Winning teams in each years</h3>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Year</th>
+            <th scope="col">First</th>
+            <th scope="col">Second</th>
+            <th scope="col">Third</th>
+            <th scope="col">Fourth</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for key, values in winners.items %}
+          <tr>
+            <td style="color:blue">{{key}}</td>
+            {% for v in values %}
+            <td style="color:red">{{v}}</td>
+            {% endfor %}
+          </tr>
         {% endfor %}
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-  <div id="container" style="width: 50%;">
-      <h3>Percentage of teams decided to bat when they won the toss</h3>
-    <canvas id="pie-chart"></canvas>
-  </div>
-  <div id="toss-container" style="width: 50%;">
-      <h3>Maximum toss winners</h3>
-    <canvas id="toss-chart"></canvas>
-  </div>
-  <div id="player-of-match-container" style="width: 50%;">
-      <h3>Maximum number of Player of the Match awards in the whole season</h3>
-    <canvas id="player-of-match"></canvas>
-  </div>
-  <div id="seasonal-winner-container" style="width: 50%;">
-      <h3>Seasonal Winners</h3>
-    <canvas id="seasonal-winner-match"></canvas>
-  </div>
-  <div style="width: 50%;">
-      <h3>Location of the most number of wins for the top team</h3>
-    <canvas id="winner-location"></canvas>
-  </div>
-  <div style="width: 50%;">
-      <h3>Team won by the highest margin of runs  for the season</h3>
-    <canvas id="winner_with_large_runs"></canvas>
-  </div>
-  <div style="width: 50%;">
-      <h3>Location hosted for most number of matches</h3>
-    <canvas id="location_for_most_matches"></canvas>
+        </tbody>
+      </table>
+      <div id="container" style="width: 50%;">
+          <h3>Percentage of teams decided to bat when they won the toss</h3>
+        <canvas id="pie-chart"></canvas>
+      </div>
+      <div id="toss-container" style="width: 50%;">
+          <h3>Maximum toss winners</h3>
+        <canvas id="toss-chart"></canvas>
+      </div>
+      <div id="player-of-match-container" style="width: 50%;">
+          <h3>Maximum number of Player of the Match awards in the whole season</h3>
+        <canvas id="player-of-match"></canvas>
+      </div>
+      <div id="seasonal-winner-container" style="width: 50%;">
+          <h3>Seasonal Winners</h3>
+        <canvas id="seasonal-winner-match"></canvas>
+      </div>
+      <div style="width: 50%;">
+          <h3>Location of the most number of wins for the top team</h3>
+        <canvas id="winner-location"></canvas>
+      </div>
+      <div style="width: 50%;">
+          <h3>Team won by the highest margin of runs  for the season</h3>
+        <canvas id="winner_with_large_runs"></canvas>
+      </div>
+      <div style="width: 50%;">
+          <h3>Location hosted for most number of matches</h3>
+        <canvas id="location_for_most_matches"></canvas>
+      </div>
+    </div>
   </div>
   </body>
   <script>
